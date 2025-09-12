@@ -1,6 +1,6 @@
 {
-    "name": "demo",
-    "short_name": "demo",
+    "name": "dumb_and_dumber",
+    "short_name": "dumb_and_dumber",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,4 +1,4 @@
-package com.example.demo
+package com.example.dumb_and_dumber
 
 import io.flutter.embedding.android.FlutterActivity
 
