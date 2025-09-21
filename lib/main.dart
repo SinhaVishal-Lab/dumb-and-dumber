@@ -1,12 +1,23 @@
+import 'package:dumb_and_dumber/game_wrapper.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Flame.device.fullScreen();
-
-  runApp(GameWidget(game: DumbAndDumber()));
+  await Flame.device.fullScreen();
+  await Flame.device.setLandscape();
+  runApp(GameAppWidget());
 }
 
-class DumbAndDumber extends FlameGame {}
+class GameAppWidget extends StatelessWidget {
+  const GameAppWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Dumb and Dumber',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: GameWrapper(),
+    );
+  }
+}
