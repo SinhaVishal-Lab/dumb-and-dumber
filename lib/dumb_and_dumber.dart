@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:dumb_and_dumber/Levels/level.dart';
+import 'package:dumb_and_dumber/characters/player.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
@@ -13,6 +14,7 @@ class DumbandDumber extends FlameGame {
   String playerName;
   bool isGamePaused = false;
   late CameraComponent cam;
+  Player player = Player();
 
   late final JoystickComponent joystick;
 
@@ -51,7 +53,7 @@ class DumbandDumber extends FlameGame {
   Color backgroundColor() => Color(0xFF2C3E50); // Dark blue-gray background
 
   Future<void> _loadLevel() async {
-    Level world = Level();
+    Level world = Level(levelName: 'level-01', player: player, );
     cam = CameraComponent.withFixedResolution(
       world: world,
       width: 1080,
@@ -161,12 +163,12 @@ class DumbandDumber extends FlameGame {
   }
 
   void _addJoystick() {
-    final knobPaint = BasicPalette.green.withAlpha(200).paint();
-    final backgroundPaint = BasicPalette.green.withAlpha(100).paint();
+    final knobPaint = BasicPalette.red.withAlpha(100).paint();
+    final backgroundPaint = BasicPalette.darkGray.withAlpha(100).paint();
     joystick = JoystickComponent(
-      knob: CircleComponent(radius: 15, paint: knobPaint),
-      background: CircleComponent(radius: 50, paint: backgroundPaint),
-      margin: const EdgeInsets.only(left: 20, bottom: 20),
+      knob: CircleComponent(radius: 20, paint: knobPaint),
+      background: CircleComponent(radius: 60, paint: backgroundPaint),
+      margin: const EdgeInsets.only(left: 40, bottom: 20),
     );
     joystick.priority = 1000;
     cam.viewport.add(joystick);

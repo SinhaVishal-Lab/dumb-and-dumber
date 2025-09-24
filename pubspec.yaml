@@ -62,10 +62,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/audio/
+    # - assets/audio/
     - assets/images/
     - assets/tiles/ 
     - assets/images/Terrain/
+    - assets/images/Characters/Samurai/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
