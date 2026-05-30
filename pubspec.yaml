@@ -64,9 +64,10 @@ flutter:
   assets:
     # - assets/audio/
     - assets/images/
-    - assets/tiles/ 
+    - assets/tiles/
     - assets/images/Terrain/
     - assets/images/Characters/Samurai/
+    - assets/images/parallax/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

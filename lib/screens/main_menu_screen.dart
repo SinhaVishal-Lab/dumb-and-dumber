@@ -20,7 +20,7 @@ class MainMenuScreen extends StatelessWidget {
         ),
       ),
       child: Container(
-        decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+        decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.3)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class MainMenuScreen extends StatelessWidget {
                     254,
                     158,
                     143,
-                  ).withOpacity(0.8),
+                  ).withValues(alpha: 0.8),
                 ),
               ),
               SizedBox(height: 80),

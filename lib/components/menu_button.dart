@@ -24,12 +24,12 @@ class MenuButton extends StatelessWidget {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: color.withOpacity(0.5),
+        backgroundColor: color.withValues(alpha: 0.5),
         foregroundColor: Colors.white,
         minimumSize: Size(220, 60),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         elevation: 10,
-        shadowColor: color.withOpacity(0.2),
+        shadowColor: color.withValues(alpha: 0.2),
       ),
     );
   }

@@ -7,7 +7,8 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 
-class DumbandDumber extends FlameGame {
+class DumbandDumber extends FlameGame
+    with HasCollisionDetection, HasKeyboardHandlerComponents {
   final VoidCallback onShowMainMenu;
   final VoidCallback onPauseGame;
   final VoidCallback onResumeGame;
@@ -50,10 +51,10 @@ class DumbandDumber extends FlameGame {
   }
 
   @override
-  Color backgroundColor() => Color(0xFF2C3E50); // Dark blue-gray background
+  Color backgroundColor() => Color(0xFF2C3E50);
 
   Future<void> _loadLevel() async {
-    Level world = Level(levelName: 'level-01', player: player, );
+    Level world = Level(levelName: 'level-01', player: player);
     cam = CameraComponent.withFixedResolution(
       world: world,
       width: 1080,
@@ -63,21 +64,22 @@ class DumbandDumber extends FlameGame {
 
     final bgSprite = await loadSprite('level-01.jpg');
     final Vector2 imageSize = bgSprite.srcSize;
-    final Vector2 targetSize = Vector2(1080, 500);
+    final Vector2 viewSize = Vector2(1080, 500);
     final double scale = math.max(
-      targetSize.x / imageSize.x,
-      targetSize.y / imageSize.y,
+      viewSize.x / imageSize.x,
+      viewSize.y / imageSize.y,
     );
 
-    final SpriteComponent background = SpriteComponent(
-      sprite: bgSprite,
-      size: imageSize * scale,
-      anchor: Anchor.center,
-      position: targetSize / 2,
-      priority: -10,
+    world.add(
+      SpriteComponent(
+        sprite: bgSprite,
+        size: imageSize * scale,
+        anchor: Anchor.center,
+        position: viewSize / 2,
+        priority: -10,
+      ),
     );
 
-    world.add(background);
     await addAll([cam, world]);
   }
 
@@ -89,7 +91,7 @@ class DumbandDumber extends FlameGame {
       ),
       buttonDown: RectangleComponent(
         size: Vector2(100, 45),
-        paint: Paint()..color = Colors.amber.withOpacity(0.7),
+        paint: Paint()..color = Colors.amber.withValues(alpha: 0.7),
       ),
       onPressed: () {
         pauseGame();
@@ -110,7 +112,6 @@ class DumbandDumber extends FlameGame {
       ),
     );
 
-    // Exit Button
     final exitButton = ButtonComponent(
       button: RectangleComponent(
         size: Vector2(100, 45),
@@ -118,7 +119,7 @@ class DumbandDumber extends FlameGame {
       ),
       buttonDown: RectangleComponent(
         size: Vector2(100, 45),
-        paint: Paint()..color = Colors.redAccent.withOpacity(0.7),
+        paint: Paint()..color = Colors.redAccent.withValues(alpha: 0.7),
       ),
       onPressed: onShowMainMenu,
       position: Vector2(140, 20),
@@ -135,10 +136,70 @@ class DumbandDumber extends FlameGame {
         ),
       ),
     );
-    // Add buttons to the game
-    cam.viewport.addAll([pauseButton, pauseText, exitButton, exitText]);
 
-    // Optional: Add player name display
+    final jumpBtn = ButtonComponent(
+      button: CircleComponent(
+        radius: 38,
+        paint: Paint()..color = const Color(0x884FC3F7),
+      ),
+      buttonDown: CircleComponent(
+        radius: 38,
+        paint: Paint()..color = const Color(0xCC4FC3F7),
+      ),
+      onPressed: player.jump,
+      position: Vector2(1000, 440),
+      anchor: Anchor.center,
+    );
+    final jumpLabel = TextComponent(
+      text: '↑',
+      position: Vector2(1000, 440),
+      anchor: Anchor.center,
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    final attackBtn = ButtonComponent(
+      button: CircleComponent(
+        radius: 32,
+        paint: Paint()..color = const Color(0x88EF5350),
+      ),
+      buttonDown: CircleComponent(
+        radius: 32,
+        paint: Paint()..color = const Color(0xCCEF5350),
+      ),
+      onPressed: player.attack,
+      position: Vector2(920, 455),
+      anchor: Anchor.center,
+    );
+    final attackLabel = TextComponent(
+      text: 'ATK',
+      position: Vector2(920, 455),
+      anchor: Anchor.center,
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    cam.viewport.addAll([
+      pauseButton,
+      pauseText,
+      exitButton,
+      exitText,
+      jumpBtn,
+      jumpLabel,
+      attackBtn,
+      attackLabel,
+    ]);
+
     if (playerName.isNotEmpty) {
       final playerNameText = TextComponent(
         text: 'Player: $playerName',
