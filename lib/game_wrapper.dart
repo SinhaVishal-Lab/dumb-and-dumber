@@ -60,7 +60,10 @@ class _GameWrapperState extends State<GameWrapper> {
       gameStarted = true;
       gamePaused = false;
     });
-    game.startLevel();
+    // A fresh run: the tally, the contracts and the level all reset. Before
+    // the game has finished loading this only records the name, and onLoad
+    // picks the prologue up from there.
+    game.startNewRun(name);
   }
 
   void resumeGame() {
